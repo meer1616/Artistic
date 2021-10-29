@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=PT+Serif&family=Rufina&display=swap');
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,8 +7,59 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.navbar{
+  font-family: 'Rufina', serif;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background-color: black;
+  /* border-radius: 25px; */
+}
+::-webkit-scrollbar-thumb{
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.loginContainer{
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 1px 7px rgb(150, 150, 150);
+  backdrop-filter: blur(0.5px);
+  -webkit-backdrop-filter: blur(0.5px);
+}
+.loginOuterBox{
+  background: url("https://source.unsplash.com/1600x900/?nature,water");
+  /* background: url("./components/images/pexels-roman-odintsov-4871011.jpg"); */
+  /* background: url("./components/images/w2.jpg"); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.HomePageBackground{
+  font-family: 'Alfa Slab One', cursive;
+  background: url("./components/images/w2.jpg");
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.boldFont{
+  font-family: 'Alfa Slab One', cursive;
+}
+/* .customDot{
+  color:white;
+ background-color:black;
+
+}
+.itemClassDot{
+background-color: black;
+color: white;
+} */
