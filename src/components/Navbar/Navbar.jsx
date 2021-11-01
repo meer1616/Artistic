@@ -13,8 +13,7 @@ import {
 } from "@chakra-ui/react"
 
 const Navbar = () => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-    console.log("currentUser in Nav", currentUser);
+
     const [isLargerThan1280] = useMediaQuery("(min-width: 700px)")
     const history = useHistory()
     const toast = useToast()
@@ -39,7 +38,8 @@ const Navbar = () => {
 
 
 
-
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    console.log("currentUser in Nav", currentUser);
     return (
         <>
             {isLargerThan1280 ? <Flex color="white" className="navbar" justifyContent="space-between" alignItems="center" w="90%" mt="5" m="auto" py="5" >
@@ -49,6 +49,7 @@ const Navbar = () => {
                 <Flex>
                     {currentUser && <Text mx="5"><Link to="/">Home</Link> </Text>}
                     {currentUser && <Text mx="5"><Link to="/contact">Contact</Link> </Text>}
+                    {currentUser && <Text mx="5"><Link to="/cart">Cart</Link> </Text>}
                     {currentUser && <Text mx="5"><Link to="/view-products">View Products</Link> </Text>}
                     {currentUser && <Text mx="5"><Link to="/add-product">Add Product</Link> </Text>}
                     {!currentUser && <Text mx="5"> <Link to="/login">Login</Link></Text>}

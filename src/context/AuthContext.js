@@ -29,7 +29,11 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if(user){
-        setCurrentUser(user)
+        // setCurrentUser(user)
+        localStorage.setItem('currentUser',JSON.stringify(user)) 
+      }
+      else{
+        localStorage.setItem('currentUser',null)
       }
       
     })
@@ -40,13 +44,16 @@ const AuthContextProvider = ({ children }) => {
   
   useEffect(() => {
     console.log('The user is', currentUser)
+    
+    // currentUser ? localStorage.setItem('currentUser',JSON.stringify(currentUser)) : localStorage.setItem('currentUser',null)
+
+
     // if(currentUser){
     //   localStorage.setItem('currentUser',JSON.stringify(currentUser))
     // }else{
     //   localStorage.setItem('currentUser',null)
     // }
 
-    currentUser ? localStorage.setItem('currentUser',JSON.stringify(currentUser)) : localStorage.setItem('currentUser',null)
 
   }, [currentUser])
 

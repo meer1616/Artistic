@@ -6,8 +6,8 @@ const Index = () => {
         <Flex height="90vh" alignItems="center" color="white">
 
             <Box w={["65%", "80%", "40%", "40%"]} ml="14">
-                <Text fontSize={["x-large", "lg", "3xl", "5xl"]} color="crimson" mb="10">Me's Gym</Text>
-                <Text fontSize={["x-large", "lg", "3xl", "6xl"]}>
+                <Text fontSize={["x-large", "x-large", "3xl", "5xl"]} color="crimson" mb="10">Me's Gym</Text>
+                <Text fontSize={["x-large", "x-large", "3xl", "6xl"]}>
                     Get The Result What you want..</Text></Box>
         </Flex>
     )

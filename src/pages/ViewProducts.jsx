@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react'
 import React from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import ViewProductsDetail from '../components/ViewProducts/ViewProductsDetail'
@@ -5,7 +6,9 @@ import ViewProductsDetail from '../components/ViewProducts/ViewProductsDetail'
 const ViewProducts = () => {
     return (
         <div>
-            <Navbar />
+            <Box backgroundColor="black">
+                <Navbar />
+            </Box>
             <ViewProductsDetail />
         </div>
     )

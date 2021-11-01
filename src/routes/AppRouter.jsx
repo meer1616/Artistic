@@ -10,6 +10,7 @@ import ProtectedRoutes from './ProtectedRoutes'
 import Contact from '../pages/Contact'
 import ViewProducts from '../pages/ViewProducts'
 import AddProducts from '../pages/AddProducts'
+import Cart from '../pages/Cart'
 
 const AppRouter = () => {
     return (
@@ -17,6 +18,7 @@ const AppRouter = () => {
             <Switch>
                 <Route exact path="/" component={HomePage}></Route>
                 <ProtectedRoutes exact path="/contact" component={Contact}></ProtectedRoutes>
+                <ProtectedRoutes exact path="/cart" component={Cart}></ProtectedRoutes>
                 <ProtectedRoutes exact path="/add-product" component={AddProducts}></ProtectedRoutes>
                 <ProtectedRoutes exact path="/view-products" component={ViewProducts}></ProtectedRoutes>
                 <ProtectedRoutes exact path="/login" component={LoginPage}></ProtectedRoutes>

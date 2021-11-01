@@ -26,9 +26,12 @@ const ForgetPasswordPage = () => {
     });
     return (
         <>
-            <Navbar />
-            <Flex alignItems="center" justifyContent="center" height="100vh">
-                <Box border="1px solid gray" color="gray" p="5" borderRadius="2xl" w="40%" m="auto" >
+            <Box backgroundColor="black">
+                <Navbar />
+
+            </Box>
+            <Flex alignItems="center" justifyContent="center" height="90.6vh" >
+                <Box boxShadow="0px 1px 5px lightgray" color="gray" p="5" borderRadius="2xl" w={["90%", "90%", "80%", "40%"]} m="auto" >
                     <Text fontSize="2xl" fontWeight="bold">Forget Password</Text>
 
                     <Formik

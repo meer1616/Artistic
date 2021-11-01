@@ -9,6 +9,8 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import useMounted from '../hooks/useMounted'
 const LoginPage = () => {
     const { login } = useAuth()
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
     const toast = useToast()
     const location = useLocation()
     console.log(location);
@@ -38,7 +40,7 @@ const LoginPage = () => {
         <>
             {/* <Navbar /> */}
 
-            <Flex alignItems="center" justifyContent="center" height="100vh" className="loginOuterBox">
+            <Flex alignItems="center" justifyContent="center" height="100vh" className="loginOuterBox" w={["90%", "90%", "", ""]} m="auto" >
                 {/* border="1px solid gray" color="gray" p="5" borderRadius="2xl" w="40%" m="auto" */}
                 <Box className="loginContainer" p="10" borderRadius="2xl" m="auto">
                     <Box> <Image src="./Logo7.png" alt="logo" height="100px" width="100px" position="absolute" top="-16" left="40%" display={["none", "none", "block", "block"]} ></Image></Box>
@@ -93,7 +95,13 @@ const LoginPage = () => {
                                     <Text my="3" mt="8" >Your-email</Text>
                                     <TextField placeholder="abc@example.com" name="email" type="email" />
                                     <Text my="3">Password</Text>
+                                    {/* <TextField placeholder="atleast 6 character" name="password" type="password" /> */}
                                     <TextField placeholder="atleast 6 character" name="password" type="password" />
+                                    {/* <TextField
+                                        pr="4.5rem"
+                                        type={show ? "text" : "password"}
+                                        placeholder="Enter password"
+                                    /> */}
                                     <Button colorScheme="messenger" mt="5" w="100%" isLoading={isLoading} type="submit">Log in</Button>
                                 </Form>
                             </Box>

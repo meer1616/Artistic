@@ -17,7 +17,7 @@ const About = () => {
     }
 
     return (
-        <Flex height={["", "", "", "100vh"]} alignItems="center" w={["95%", "95%", "100%", "80%"]} m="auto" justifyContent="space-between" flexDir={["column-reverse", "column-reverse", "row", "row"]}>
+        <Flex height={["", "", "", "100vh"]} alignItems="center" w={["95%", "95%", "90%", "80%"]} m="auto" justifyContent="space-between" flexDir={["column-reverse", "column-reverse", "row", "row"]}>
             <Box w={["90%", "90%", "40%", "40%"]} >
                 <Text fontSize={["2xl", "2xl", "xl", "3xl"]} fontWeight="bold" my="5" color="crimson" >About.</Text>
                 <Text fontSize={["lg", "2xl", "2xl", "4xl"]} className="boldFont" opacity="0.8" >Number of Benefits of Gymnastics </Text>
