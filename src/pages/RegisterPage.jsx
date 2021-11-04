@@ -12,6 +12,7 @@ const RegisterPage = () => {
     const { register, signupWithGoogle } = useAuth()
     const toast = useToast()
     const [isLoading, setIsLoading] = useState(false)
+    const [signupUser, setSignupUser] = useState({})
 
     const mounted = useRef(false)
 
@@ -39,6 +40,11 @@ const RegisterPage = () => {
         // confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password must match").
         // required("Confirm password is required")
     });
+
+    localStorage.setItem("currentUser", JSON.stringify(signupUser))
+
+    console.log("signupUser", signupUser);
+
     return (
         <>
             {/* <Navbar /> */}
@@ -58,8 +64,8 @@ const RegisterPage = () => {
                                 console.log("res in register", res);
                                 toast({
                                     position: "top-right",
-                                    title: "Account created.",
-                                    description: "We've created your account for you.",
+                                    title: "Signup Successfully",
+                                    description: "You are registered Successfully",
                                     status: "success",
                                     duration: 4000,
                                     isClosable: true,
@@ -106,7 +112,11 @@ const RegisterPage = () => {
                         isFullWidth
                         colorScheme='red'
                         leftIcon={<FaGoogle />} onClick={() => {
-                            signupWithGoogle().then(res => { console.log("signupwithgoogle", res) }).catch(err => console.log(err))
+                            signupWithGoogle().then(res => {
+                                setSignupUser(res)
+                                console.log("signupwithgoogle", res)
+                                history.push('/')
+                            }).catch(err => console.log(err))
                         }}>Sign in with Google</Button>
                     <Flex my="3">Already a Member ? <Text color="blue" mx="2"> <Link to="/login" login>Sign in</Link></Text> </Flex>
 
