@@ -74,8 +74,24 @@ const Navbar = () => {
                             finalFocusRef={btnRef}
                         >
                             <DrawerOverlay />
-                            <DrawerContent>
-                                <DrawerCloseButton />
+                            <DrawerContent backgroundColor="blackAlpha.900" color="white">
+                                <Flex justifyContent="space-between" alignItems="center" mt="3" w="80%" m="10px auto" >
+                                    <Box>Logo</Box>
+                                    <Box>
+                                        <DrawerCloseButton />
+                                    </Box>
+                                </Flex>
+                                <Box ml="3" mt="8" fontSize="large">
+
+                                    {currentUser && <Text mx="5"><Link to="/">Home</Link> </Text>}
+                                    {currentUser && <Text mx="5"><Link to="/contact">Contact</Link> </Text>}
+                                    {currentUser && <Text mx="5"><Link to="/cart">Cart</Link> </Text>}
+                                    {currentUser && <Text mx="5"><Link to="/view-products">View Products</Link> </Text>}
+                                    {currentUser && <Text mx="5"><Link to="/add-product">Add Product</Link> </Text>}
+                                    {!currentUser && <Text mx="5"> <Link to="/login">Login</Link></Text>}
+                                    {!currentUser && <Text mx="5"><Link to="/signup">Sign up</Link> </Text>}
+                                    {currentUser && <Text mx="5" onClick={handleLogout} cursor="pointer"> Log out </Text>}
+                                </Box>
                             </DrawerContent>
                         </Drawer>
                     </Box>

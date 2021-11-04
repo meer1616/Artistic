@@ -259,13 +259,13 @@ const AddProductForm = () => {
                         <TextField placeholder="Address" name="address" type="text" />
 
                         <Flex flexDir={["column", "column", "row", "row"]}>
-                            <Box w="50%" mr="5" >
+                            <Box w={["100%", "100%", "50%", "50%"]} mr="5" >
 
                                 <Text ml="1" >Contact No <span style={{ color: "red" }} >*</span></Text>
 
                                 <TextField placeholder="Contact Number" name="contactNo" type="number" />
                             </Box>
-                            <Box w="50%">
+                            <Box w={["100%", "100%", "50%", "50%"]}>
 
                                 <Text ml="1" >Quantity <span style={{ color: "red" }} >*</span></Text>
                                 <TextField placeholder="Quantity" name="quantity" type="number" />
