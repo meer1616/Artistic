@@ -1,9 +1,8 @@
-import { Flex, Box, Text, useToast, Button, Icon } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import { Flex, Box, Text, useToast, Icon } from '@chakra-ui/react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useMediaQuery, useDisclosure } from "@chakra-ui/react"
-import { HamburgerIcon } from "@chakra-ui/icon"
 import { FaAlignRight } from "react-icons/fa"
 import {
     Drawer,
@@ -39,7 +38,7 @@ const Navbar = () => {
 
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"))
-    console.log("currentUser in Nav", currentUser);
+    // console.log("currentUser in Nav", currentUser);
     return (
         <>
             {isLargerThan1280 ? <Flex color="white" className="navbar" justifyContent="space-between" alignItems="center" w="90%" mt="5" m="auto" py="5" >

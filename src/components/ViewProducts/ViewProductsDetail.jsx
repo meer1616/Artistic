@@ -1,15 +1,15 @@
-import { Box, Button, Flex, Text, Spinner, Input } from '@chakra-ui/react'
+import { Box, Button, Flex, Text, Spinner, Input, Image } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { getDatabase, ref } from "firebase/database"
+// import { getDatabase, ref } from "firebase/database"
 import { db } from '../../firebase/firebaseInit'
 import { collection, getDocs } from 'firebase/firestore'
+
 const ViewProductsDetail = () => {
+    // const [itemRef, setItemRef] = useState([])
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
     const [addToCartItems, setaddToCartItems] = useState([])
-
-    // const test = collection(db, "artisGymProducts");
-    // console.log("test", test);
+    // const listRef = ref(storage, 'images/');
 
 
     useEffect(() => {
@@ -17,25 +17,11 @@ const ViewProductsDetail = () => {
         async function getProducts() {
             try {
 
-                // const prod = collection(db, "artisGymProducts")
-                // console.log(prodSnap);
-                // const prodSnap = await getDocs(prod)
-                // const ProductList = prodSnap.docs.map((item) => {
-
-                //     return item.data()
-                // })
-
-                // console.log("productList", ProductList);
-                // setProducts(ProductList)
-
                 const ProductArr = []
 
                 const querySnapshot = await getDocs(collection(db, "artisGymProducts"));
                 querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
                     ProductArr.push(doc.data())
-                    // console.log(doc);
-                    // console.log(doc.id, " => ", doc.data());
 
                 });
 
@@ -46,22 +32,20 @@ const ViewProductsDetail = () => {
                 console.log("err", e);
             }
         }
+
         getProducts()
-        console.log("products", products);
 
     }, [])
 
+
     const addToCart = (item) => {
         if (addToCartItems.length > 0) {
-            console.log("item.id", item.id);
             const temp = addToCartItems.find(element => element.id === item.id)
-            console.log("temp", temp);
             if (temp) {
                 alert("same Item Found")
             }
             else {
                 setaddToCartItems([...addToCartItems, item])
-                // localStorage.setItem("cartItems",)
             }
         }
         else {
@@ -69,9 +53,7 @@ const ViewProductsDetail = () => {
         }
 
     }
-    // console.log("cartItems", addToCartItems);
 
-    console.log("addToCartItems", addToCartItems);
     localStorage.setItem("gymCartItems", JSON.stringify(addToCartItems))
 
     if (loading) {
@@ -93,26 +75,28 @@ const ViewProductsDetail = () => {
     return (
         <Box>
             <Box>
-                <Box backgroundColor="lightgray">
+                {/* <Box backgroundColor="lightgray">
                     <Input w="30%" border="2px solid red"></Input>
-                </Box>
+                </Box> */}
                 <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
                     {products.length === 0 ? <Box>No Products available</Box> :
                         <Flex flexWrap="wrap" alignItems="center" justifyContent="center">
                             {products.map((item) => {
                                 return (
-                                    <Box border="1px solid black" key={item.id} width="30%" margin="10">
-                                        <Text>{item.name}</Text>
-                                        <Text>{item.title}</Text>
-                                        <Text>{item.description}</Text>
-                                        <Text>{item.address}</Text>
-                                        <Text>{item.contactNo}</Text>
-                                        <Button onClick={() => addToCart(item)}>Add to cart</Button> <Button>Buy</Button>
+                                    <Box borderRadius="2xl" boxShadow="0 0 5px gray" key={item.id} width={["100%", "100%", "50%", "30%"]} margin="10" p={["6", "5", "6", "10"]}>
+                                        <Flex alignItems="center" justifyContent="center">
+                                            <Image src={item.imgUrl} height="200px" width="400px" alt="image"></Image>
+                                        </Flex>
+                                        <Text mt="2"><span style={{ fontWeight: "bold" }}>Name: </span>{item.name}</Text>
+                                        <Text><span style={{ fontWeight: "bold" }}>Title: </span>{item.title}</Text>
+                                        <Text><span style={{ fontWeight: "bold" }}>Description: </span>{item.description}</Text>
+                                        <Text><span style={{ fontWeight: "bold" }}>Address: </span>{item.address}</Text>
+                                        <Text><span style={{ fontWeight: "bold" }}>Contact No: </span>{item.contactNo}</Text>
+                                        {/* <Button onClick={() => addToCart(item)}>Add to cart</Button> <Button>Buy</Button> */}
                                     </Box>
                                 )
                             })}</Flex>
                     }
-
                 </Flex>
 
             </Box>

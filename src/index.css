@@ -30,13 +30,14 @@ code {
 }
 
 .loginContainer{
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 1px 7px rgb(150, 150, 150);
   backdrop-filter: blur(0.5px);
   -webkit-backdrop-filter: blur(0.5px);
 }
 .loginOuterBox{
   /* background: url("https://source.unsplash.com/1600x900/?nature,water"); */
+  /* background: rgb(70, 70, 70); */
   /* background: url("./components/images/pexels-roman-odintsov-4871011.jpg"); */
   /* background: url("./components/images/w2.jpg"); */
   background-position: center;

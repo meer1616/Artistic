@@ -4,13 +4,13 @@ import { Text, Box, Button, Flex, useToast, Image } from "@chakra-ui/react"
 import { Form, Formik } from 'formik'
 import * as yup from "yup"
 import TextField from '../components/TextField/TextField'
-import Navbar from "../components/Navbar/Navbar"
+// import Navbar from "../components/Navbar/Navbar"
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import useMounted from '../hooks/useMounted'
 const LoginPage = () => {
     const { login } = useAuth()
-    const [show, setShow] = React.useState(false)
-    const handleClick = () => setShow(!show)
+    // const [show, setShow] = React.useState(false)
+    // const handleClick = () => setShow(!show)
     const toast = useToast()
     const location = useLocation()
     console.log(location);
@@ -22,7 +22,7 @@ const LoginPage = () => {
         email: yup
             .string()
             .email("Provide valid email")
-            .required("email is required")
+            .required("Email is required")
             .test((value) => {
                 const re =
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -30,7 +30,7 @@ const LoginPage = () => {
             }),
         password: yup
             .string()
-            .required("password is required")
+            .required("Password is required")
             .min(6, "password must be atleast 6 character"),
         // confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password must match").
         // required("Confirm password is required")
@@ -40,12 +40,12 @@ const LoginPage = () => {
         <>
             {/* <Navbar /> */}
 
-            <Flex alignItems="center" justifyContent="center" height="100vh" className="loginOuterBox" w={["90%", "90%", "", ""]} m="auto" >
+            <Flex alignItems="center" justifyContent="center" height="100vh" className="loginOuterBox" w={["90%", "90%", "100%", "100%"]} m="auto" >
                 {/* border="1px solid gray" color="gray" p="5" borderRadius="2xl" w="40%" m="auto" */}
                 <Box className="loginContainer" p="10" borderRadius="2xl" m="auto">
                     <Box> <Image src="./Logo7.png" alt="logo" height="100px" width="100px" position="absolute" top="-16" left="40%" display={["none", "none", "block", "block"]} ></Image></Box>
                     <Text fontSize="2xl" fontWeight="bold" mt="5">Log in</Text>
-                    <Text w="80%" mt="3">
+                    <Text w={["100%", "100%", "80%", "80%"]} mt="3">
                         Login with your data that you have entered during registration
                     </Text>
                     <Formik

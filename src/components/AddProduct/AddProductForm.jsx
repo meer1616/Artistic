@@ -1,25 +1,66 @@
-import { Box, Button, Flex, Icon, Input, Text, useToast } from '@chakra-ui/react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Box, Button, Flex, Icon, Image, Input, Text, useToast } from '@chakra-ui/react'
+import { Formik, Form } from 'formik';
 import React, { useState } from 'react'
 import TextField from '../TextField/TextField'
 import { BsFillCloudUploadFill } from "react-icons/bs"
 import { v4 as uuid } from "uuid"
-import { addDoc, collection, onSnapshot, setDoc, doc } from "firebase/firestore"
+import { setDoc, doc } from "firebase/firestore"
 import * as Yup from "yup"
 import { db } from '../../firebase/firebaseInit';
 import { useHistory } from 'react-router-dom';
-import ImageUpload from './ImageUpload';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from '../../firebase/firebaseInit';
+import { useDropzone } from "react-dropzone";
+
 
 
 const AddProductForm = () => {
     const toast = useToast()
     const history = useHistory()
-    // const [image, setImage] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [inputFields, setInputFields] = useState({})
+    const [image, setImage] = useState(undefined)
+    const [downloadUrl, setDownloadUrl] = useState(false)
+    const [imageUrl, setImageUrl] = useState("")
+    const [preview, setPreview] = useState("")
+    const [previewTest, setPreviewTest] = useState(false)
+    const [fileRej, setFileRej] = useState(false)
+
+    const typesImage = ['image/jpeg', 'image/png']
+
+    // const handleImageChange = (e) => {
+    //     if (e.target.files[0]) {
+    //         console.log("sds", e.target.files[0]);
+    //         let selected = e.target.files[0];
+
+    //         if (selected && types.includes(selected.type)) {
+    //             // setFile(selected)
+    //             setImage(e.target.files[0])
+    //         }
+    //         else {
+    //             setImage(null)
+    //             alert("Insert Images properly")
+    //         }
+    //     }
+    // }
+
+    const { getRootProps, getInputProps, fileRejections } = useDropzone({
+        accept: 'image/jpeg, image/png',
+        onDrop: (acceptedFiles) => {
+            setImage(
+                acceptedFiles.map((file) =>
+                    Object.assign(file, {
+                        preview: URL.createObjectURL(file),
+                    })
+                )
+            );
+        },
+    });
+
+
+
 
     const initialValues = {
-        // id: uuid(),
         name: "",
         title: "",
         description: "",
@@ -28,14 +69,12 @@ const AddProductForm = () => {
         quantity: 1
     }
 
-    const addDocument = async (inputFields) => {
+    const addDocument = (inputFields) => {
 
         try {
-
-
             console.log("inputFields in fun call", inputFields);
             // const docRef = await addDoc(collection(db, "artisGymProducts"), inputFields)
-            const docRef = await setDoc(doc(db, "artisGymProducts", uuid()), inputFields);
+            setDoc(doc(db, "artisGymProducts", uuid()), inputFields);
             toast({
                 position: "top-right",
                 title: "Submited Successfully.",
@@ -45,25 +84,11 @@ const AddProductForm = () => {
                 isClosable: true,
             })
             setInputFields(initialValues)
-            history.push("/view-products")
-
         }
         catch (e) {
             console.log("error in addDocument", e);
         }
-
-        // try {
-        //     const collectionRef = doc(db, 'artisGymProducts');
-        //     console.log("collectionRef", collectionRef);
-        //     // console.log("docRef", docRef);
-        //     // const docRef = addDoc(collectionRef, inputFields);
-        // } catch (e) {
-        //     console.error("Error adding document: ", e);
-        // }
-
     }
-
-
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -78,104 +103,183 @@ const AddProductForm = () => {
             .matches(phoneRegExp, 'Phone number is not valid')
             .min(10, "to short")
             .max(10, "to long"),
-        quantity: Yup.number().required("Quantity is Required")
+        quantity: Yup.number().required("Quantity is Required"),
+        // imageUrl: Yup.string().required("imageUrl is Required ")
+
     })
 
-    // const handleImageChange = (e) => {
-    //     if (e.target.files[0]) {
-    //         console.log(e.target.files[0]);
-    //         setImage(e.target.files[0])
-    //     }
-    // }
 
-    // const handleUploadImage = () => {
 
-    // }
+    const handleUploadImage = (values) => {
+        if (image) {
+            console.log("going Well");
+            const metadata = {
+                contentType: 'image/jpeg' || 'image/png'
+            };
+
+            const storageRef = ref(storage, 'images/' + image[0].name);
+            const uploadTask = uploadBytesResumable(storageRef, image[0], metadata);
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            break;
+                        case 'storage/canceled':
+                            break;
+                        case 'storage/unknown':
+                            break;
+
+                    }
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+
+                        console.log('File available at', downloadURL);
+                        setImageUrl(downloadURL)
+                        // url = downloadURL
+                        setDownloadUrl(true)
+                        setInputFields({ id: uuid(), createdAt: date, ...values })
+                        // console.log("inputFields in submit", inputFields);
+                        console.log("in formik submit ", imageUrl);
+                        console.log("downloadUrl", downloadUrl);
+                        // alert(JSON.stringify({ id: uuid(), createdAt: date, imgName: image.name, imgUrl: downloadURL, ...values }))
+                        addDocument({ id: uuid(), createdAt: date, imgName: image[0].name, imgUrl: downloadURL, ...values })
+                        setIsSubmitting(false)
+                        history.push("/view-products")
+
+
+                    });
+
+                }
+            );
+
+        }
+        else {
+            alert("please upload image")
+            console.log("not going well");
+        }
+
+
+    }
 
 
     const date = new Date()
-    console.log(date.toLocaleString())
-    console.log(date);
+    // setPreview(image[0].preview)
+    const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+        <Box key={file.path}>
+            {/* {file.path} - {file.size} bytes */}
+            {errors.map(e => (
+                <Text key={e.code}>{e.message}</Text>
+            ))}
+        </Box>
+    ));
+    console.log("image", image);
 
-    console.log("inputFields", inputFields);
-    // console.log("image", image);
+    if (image === undefined) {
+    } else {
+        console.log("image[0]", image[0]);
+
+    }
+    console.log("filerejection", fileRejectionItems.length)
+    // if (fileRejectionItems.length === 1) {
+    //     console.log("inLog", fileRejectionItems);
+    //     setFileRej(true)
+    //     // alert("please enter valid image")
+
+    // }
+    // console.log("image", image[0].preview || "");
+    console.log("getRootProps", getRootProps());
+    console.log("getInputProps", getInputProps());
     return (
         <Box w={["85%", "85%", "80%", "50%"]} m="auto">
-            <Flex border="1px solid lightgray" height="20vh" alignItems="center" justifyContent="center" mt="10" mb="3">
-                {/* <Box position="relative" w="7%" _hover={{ cursor: "pointer" }} >
-                    <Icon as={BsFillCloudUploadFill} _hover={{ cursor: "pointer" }} position="absolute" top="0" fontSize="5xl" ></Icon>
-                    <Input pl="12" opacity="0" type="file" onChange={handleImageChange} _hover={{ cursor: "pointer" }} w="80%"></Input>
-                    <Button onClick={handleUploadImage}></Button>
-                </Box> */}
+            <Flex flexDir={["column-reverse", "column-reverse", "row", "row"]} border="1px solid lightgray" borderStyle="dashed" justifyContent="space-evenly" mt="5" position="relative" py="5">
+                <Flex flexDir="column" alignItems="center" justifyContent="center" my="5" {...getRootProps()} _hover={{ cursor: "pointer" }} >
+                    <Flex alignItems="center" justifyContent="center">
+                        <Icon as={BsFillCloudUploadFill} _hover={{ cursor: "pointer" }} top="0" fontSize="5xl" ></Icon>
 
-                <ImageUpload />
+                    </Flex>
+                    <Box>
+
+                        <Input {...getInputProps()} pl="12" opacity="0" type="file" _hover={{ cursor: "pointer" }} w="80%"></Input>
+                    </Box>
+                    {/* <BsFillCloudUploadFill position="absolute" top="0" /> */}
+                    {/* <Button onClick={handleUploadImage}>Upload</Button> */}
+                    {/* <div>{imagesDisp}</div> */}
+
+                    <Text mt="5">Drag and drop or Browse to choose a file</Text>
+                </Flex>
+                <Flex alignItems="center" justifyContent="center" w={["100%", "100%", "35%", "35%"]} py="2" border={["", "", "1px solid lightgray", "1px solid lightgray"]} borderStyle="dashed">
+
+                    {image === undefined || image.length === 0 ? "" : <Image src={image[0].preview} alt="image" height="150px" width="250px" ></Image>}
+                </Flex>
+
+                {/* <ImageUpload /> */}
+
             </Flex>
+            <Text fontSize="sm" color="blue.500" >{image === undefined || image.length === 0 ? "" : image[0].name}</Text>
+            <Text textAlign="center" color="red"> {fileRejectionItems}</Text>
+
             <Formik
+
                 initialValues={initialValues}
                 validationSchema={validateSchema}
                 onSubmit={(values) => {
-                    // setTimeout(() => {
                     setIsSubmitting(true)
-                    // alert(JSON.stringify({ id: uuid(), ...values }, null, 2));
-                    setInputFields({ id: uuid(), createdAt: date, ...values })
-                    // console.log("inputFields in submit", inputFields);
-                    addDocument({ id: uuid(), createdAt: date, ...values })
-                    setIsSubmitting(false)
-
-                    // }, 400);
+                    handleUploadImage(values)
                 }}
             >
                 {({ resetForm }) => (
 
-                    <Form >
-                        <Text ml="1">Name <span style={{ color: "red" }} >*</span></Text>
-                        {/* <Field name="name" type="text" />
-                <ErrorMessage name="name" /> */}
+                    <Form  >
+                        <Text mt="1" ml="1">Name <span style={{ color: "red" }} >*</span></Text>
 
                         <TextField placeholder="Name" name="name" type="text" />
                         <Text ml="1">Title <span style={{ color: "red" }} >*</span></Text>
-                        {/* <Field name="title" type="text" />
-                <ErrorMessage name="title" /> */}
 
                         <TextField placeholder="Title" name="title" type="text" />
 
 
                         <Text ml="1">Description <span style={{ color: "red" }} >*</span></Text>
-                        {/* <Field name="description" type="text" />
-                <ErrorMessage name="description" /> */}
                         <TextField placeholder="Description" name="description" type="text" />
 
 
                         <Text ml="1" ml="1" >Address <span style={{ color: "red" }} >*</span></Text>
-                        {/* <Field name="address" type="text" />
-                <ErrorMessage name="address" /> */}
                         <TextField placeholder="Address" name="address" type="text" />
 
-                        <Flex>
-                            <Box w="50%" mr="5">
+                        <Flex flexDir={["column", "column", "row", "row"]}>
+                            <Box w="50%" mr="5" >
 
                                 <Text ml="1" >Contact No <span style={{ color: "red" }} >*</span></Text>
 
-                                {/* <Field name="contactNo" type="number" />
-                <ErrorMessage name="number" /> */}
                                 <TextField placeholder="Contact Number" name="contactNo" type="number" />
                             </Box>
                             <Box w="50%">
 
                                 <Text ml="1" >Quantity <span style={{ color: "red" }} >*</span></Text>
-                                {/* <Field name="contactNo" type="number" />
-                <ErrorMessage name="number" /> */}
                                 <TextField placeholder="Quantity" name="quantity" type="number" />
                             </Box>
                         </Flex>
+                        <Text _hover={{ cursor: "pointer" }} mt="2" color="blue.500" textAlign="right" type="reset" onClick={resetForm}>
+                            Reset all
+                        </Text>
 
-                        <Flex alignItems="center" justifyContent="center" mt="10">
+                        <Flex alignItems="center" justifyContent="center" my="2">
 
 
-                            <Button w="50%" colorScheme="blue" type="submit" isLoading={isSubmitting} >Submit</Button>
-                            <Button type="reset" onClick={resetForm}>
-                                Reset All
-                            </Button>
+                            <Button colorScheme="blue" w={["100%", "100%", "60%", "60%"]} type="submit" isLoading={isSubmitting}  >Submit</Button>
+
                         </Flex>
                     </Form>
                 )}

@@ -1,7 +1,7 @@
 import { Box, Button, Icon, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BsFillCloudUploadFill } from "react-icons/bs"
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from '../../firebase/firebaseInit';
 const ImageUpload = () => {
     const [image, setImage] = useState({})

@@ -9,7 +9,8 @@ const About = () => {
 
     const handleJoinNow = () => {
         if (currentUser) {
-            alert("You are already logged In ")
+            // alert("You are already logged In ")
+            history.push("/add-product")
         }
         else {
             history.push("/login")
@@ -26,8 +27,8 @@ const About = () => {
                 <Button onClick={handleJoinNow} borderRadius="20" px="7" boxShadow="lg" _hover={{ color: "white", backgroundColor: "gray" }} backgroundColor="crimson" color="white" mb={["8", "8", "", ""]} >Join Now</Button>
             </Box>
             <Flex position="relative" justifyContent="center" alignItems="center" mt={["16", "16", "", ""]} w={["100%", "100%", "50%", "50%"]} >
-                <Box zIndex="-1"> <Image src="./crimsonsq3.png" position="absolute" top="-12" w="40%" left="2"></Image> </Box>
-                <Box zIndex="-1"> <Image src="./crimsonsq3.png" position="absolute" bottom="-12" w="40%" right="2"></Image> </Box>
+                <Box zIndex="-1"> <Image src="./crimsonsq3.png" position="absolute" top={["-7", "-9", "-10", "-12"]} w="40%" left="2"></Image> </Box>
+                <Box zIndex="-1"> <Image src="./crimsonsq3.png" position="absolute" bottom={["-7", "-9", "-10", "-12"]} w="40%" right="2"></Image> </Box>
 
                 <Image src="./w3.jpg" alt="image" w="80%" ></Image>
             </Flex>

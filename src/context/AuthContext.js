@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -24,7 +24,7 @@ const AuthContext = createContext({
 export const useAuth = () => useContext(AuthContext);
 const AuthContextProvider = ({ children }) => {
 
-  const [currentUser, setCurrentUser] = useState(null)
+  // const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -42,20 +42,20 @@ const AuthContextProvider = ({ children }) => {
     }
   }, [])
   
-  useEffect(() => {
-    console.log('The user is', currentUser)
+  // useEffect(() => {
+  //   // console.log('The user is', currentUser)
     
-    // currentUser ? localStorage.setItem('currentUser',JSON.stringify(currentUser)) : localStorage.setItem('currentUser',null)
+  //   // currentUser ? localStorage.setItem('currentUser',JSON.stringify(currentUser)) : localStorage.setItem('currentUser',null)
 
 
-    // if(currentUser){
-    //   localStorage.setItem('currentUser',JSON.stringify(currentUser))
-    // }else{
-    //   localStorage.setItem('currentUser',null)
-    // }
+  //   // if(currentUser){
+  //   //   localStorage.setItem('currentUser',JSON.stringify(currentUser))
+  //   // }else{
+  //   //   localStorage.setItem('currentUser',null)
+  //   // }
 
 
-  }, [currentUser])
+  // }, [currentUser])
 
 
   const register = (email, password) => {
@@ -86,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const value = {
-    currentUser,
+    // currentUser,
     register,
     login,
     signupWithGoogle,

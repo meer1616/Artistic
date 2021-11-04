@@ -8,11 +8,11 @@ const DisplayCartItems = () => {
     const [removeFromCartItems, setRemoveFromCartItems] = useState(gymCartItems)
 
     const removeFromCart = (item) => {
-        const arr = removeFromCartItems.filter(elem => elem != item)
+        const arr = removeFromCartItems.filter(elem => elem !== item)
         setRemoveFromCartItems(arr)
     }
 
-    const removedItem = localStorage.setItem("gymCartItems", JSON.stringify(removeFromCartItems))
+    localStorage.setItem("gymCartItems", JSON.stringify(removeFromCartItems))
 
     return (
         <Box>

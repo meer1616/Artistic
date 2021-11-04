@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import * as yup from "yup"
 import { FaGoogle } from 'react-icons/fa'
 import TextField from '../components/TextField/TextField'
-import Navbar from '../components/Navbar/Navbar'
+// import Navbar from '../components/Navbar/Navbar'
 import { Link, useHistory } from 'react-router-dom'
 const RegisterPage = () => {
     const history = useHistory()

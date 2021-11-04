@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text, Button, Icon } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, Button } from '@chakra-ui/react'
 // import { BsCheck2Circle } from "react-icons/bs"
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import React from 'react'
