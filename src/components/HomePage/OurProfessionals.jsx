@@ -24,7 +24,7 @@ const OurProfessionals = () => {
     };
 
     return (
-        <Box mb={["10", "12", "16", "20"]} >
+        <Box mb={["10", "12", "16", "20"]} className="roboto" letterSpacing="wider" >
             <Text textAlign="center" fontSize={["2xl", "2xl", "3xl", "4xl"]} fontWeight="semibold" color="blackAlpha.800">Our Professionals</Text>
             {/* <Text fontSize="3xl" fontWeight="bold" my="5" color="crimson" textAlign="center">Our Professionals</Text> */}
 
@@ -64,9 +64,9 @@ const OurProfessionals = () => {
                         <Image src="./w6.jpg" alt="img" ></Image>
                     </Flex>
 
-                    <Text>Mistry Manthan</Text>
-                    <Text>Experience of 10 Years</Text>
-                    <Text>Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
+                    <Text>Name : Mistry Manthan</Text>
+                    <Text>Experience : 10 Years</Text>
+                    <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
                 <Box border="1px" mx={["10", "10", "16", "16"]} my="10" p={["8", "8", "10", "10"]} borderRadius="2xl" backgroundColor="black" color="white">
                     <Flex alignItems="center" justifyContent="center">
@@ -74,9 +74,9 @@ const OurProfessionals = () => {
                         <Image src="./w6.jpg" alt="img" ></Image>
                     </Flex>
 
-                    <Text>Patel Kaushal</Text>
-                    <Text>Experience of 14 Years</Text>
-                    <Text>Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
+                    <Text>Name : Patel Kaushal</Text>
+                    <Text>Experience : 14 Years</Text>
+                    <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
                 <Box border="1px" mx={["10", "10", "16", "16"]} my="10" p={["8", "8", "10", "10"]} borderRadius="2xl" backgroundColor="black" color="white">
                     <Flex alignItems="center" justifyContent="center">
@@ -84,9 +84,9 @@ const OurProfessionals = () => {
                         <Image src="./w6.jpg" alt="img" ></Image>
                     </Flex>
 
-                    <Text> Patel Meer</Text>
-                    <Text>Experience of 12 Years</Text>
-                    <Text>Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
+                    <Text>Name : Patel Meer</Text>
+                    <Text>Experience : 12 Years</Text>
+                    <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
                 <Box border="1px" mx={["10", "10", "16", "16"]} my="10" p={["8", "8", "10", "10"]} borderRadius="2xl" backgroundColor="black" color="white">
                     <Flex alignItems="center" justifyContent="center">
@@ -94,18 +94,18 @@ const OurProfessionals = () => {
                         <Image src="./w6.jpg" alt="img"></Image>
                     </Flex>
 
-                    <Text> Kohei Uchimura</Text>
-                    <Text>Experience of 100 Years</Text>
-                    <Text>Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
+                    <Text> Name : Kohei Uchimura</Text>
+                    <Text>Experience : 100 Years</Text>
+                    <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
                 <Box border="1px" mx={["10", "10", "16", "16"]} my="10" p={["8", "8", "10", "10"]} borderRadius="2xl" backgroundColor="black" color="white">
                     <Flex alignItems="center" justifyContent="center">
 
                         <Image src="./w6.jpg" alt="img" ></Image>
                     </Flex>
-                    <Text> Sam Mikulak</Text>
-                    <Text>Experience of 50 Years</Text>
-                    <Text>Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
+                    <Text> Name : Sam Mikulak</Text>
+                    <Text>Experience : 50 Years</Text>
+                    <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
             </Carousel>
         </Box>

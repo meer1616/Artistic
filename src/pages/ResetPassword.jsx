@@ -47,7 +47,7 @@ const ResetPassword = () => {
                 <Navbar />
             </Box>
             <Flex alignItems="center" justifyContent="center" height="90.5vh">
-                <Box boxShadow="0 0 5px lightgray" color="gray" p="5" borderRadius="2xl" w="40%" m="auto" >
+                <Box boxShadow="0 0 5px lightgray" color="gray" p="5" borderRadius="2xl" w={["100%", "100%", "40%", "40%"]} m="auto" >
                     <Text fontSize="2xl" fontWeight="bold">Reset Password</Text>
                     <Formik
                         initialValues={{ email: "", password: "" }}

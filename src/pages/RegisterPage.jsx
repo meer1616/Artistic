@@ -43,7 +43,7 @@ const RegisterPage = () => {
         <>
             {/* <Navbar /> */}
             <Flex alignItems="center" justifyContent="center" height="100vh">
-                <Box className="loginContainer" color="gray" p="10" borderRadius="2xl" w="35%" m="auto" >
+                <Box className="loginContainer" color="gray" p="10" borderRadius="2xl" w={["95%", "95%", "40%", "35%"]} m="auto" >
                     <Text fontSize="2xl" fontWeight="bold" textAlign="center">Sign Up</Text>
                     <Text w="80%" mt="3">
                         {/* Register yourself to have the best taste of Gymnastics In India */}

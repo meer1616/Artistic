@@ -168,6 +168,7 @@ const AddProductForm = () => {
         }
         else {
             alert("please upload image")
+            setIsSubmitting(false)
             console.log("not going well");
         }
 

@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <Box backgroundColor="black" color="white">
             <Flex alignItems="center" justifyContent="center"  >
-                <Image src="./footer.png" alt="img" mt="16"></Image>
+                <Image src="./M.svg" className="icons" height="20" alt="img" mt="16"></Image>
             </Flex>
 
             <Flex alignItems="center" justifyContent="center" flexDir="column">
