@@ -10,23 +10,30 @@ import OurTour from '../components/HomePage/OurTour'
 import Footer from '../components/HomePage/Footer'
 import OurServices from '../components/HomePage/OurServices'
 import OurProfessionals from '../components/HomePage/OurProfessionals'
+import { motion } from "framer-motion"
 const HomePage = () => {
     // const { currentUser } = useAuth()
     return (
-        <Box>
-            <Box height="100vh" className="HomePageBackground">
-                <Navbar />
-                <HomePageIndex />
-                {/* {JSON.stringify(currentUser, null, 2)} */}
+        <motion.div transition={{ duration: 0.5 }} initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}>
+
+            <Box backgroundColor="white">
+                <Box height="100vh" className="HomePageBackgroundOuter">
+                    <Box className="HomePageBackground">
+
+                        <Navbar />
+                        <HomePageIndex />
+                    </Box>
+                </Box>
+                <Box>
+
+                    <About />
+                    <OurTour />
+                    <OurServices />
+                    <OurProfessionals />
+                    <Footer />
+                </Box>
             </Box>
-            {/* <Partners /> */}
-            <About />
-            <OurTour />
-            {/* <JoinNow /> */}
-            <OurServices />
-            <OurProfessionals />
-            <Footer />
-        </Box>
+        </motion.div>
     )
 }
 

@@ -1,6 +1,6 @@
 import { Flex, Box, Text, useToast, Icon, Image } from '@chakra-ui/react'
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, NavLink } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useMediaQuery, useDisclosure } from "@chakra-ui/react"
 import { FaAlignRight } from "react-icons/fa"
@@ -8,6 +8,8 @@ import { GrUserAdd, GrView } from "react-icons/gr"
 import { BiLogOut } from "react-icons/bi"
 import { IoLogInOutline } from "react-icons/io5"
 import { MdAssignmentInd } from "react-icons/md"
+// import Slide from 'react-reveal/Slide';
+import Fade from 'react-reveal/Fade';
 
 import { FaHome } from "react-icons/fa"
 import {
@@ -24,7 +26,7 @@ const Navbar = () => {
     const toast = useToast()
     const { logout } = useAuth()
     const handleLogout = async () => {
-        console.log("logout");
+        // console.log("logout");
         await logout()
         localStorage.setItem("currentUser", null)
         toast({
@@ -48,20 +50,34 @@ const Navbar = () => {
     return (
         <>
             {isLargerThan1280 ? <Flex color="white" className="navbar roboto" letterSpacing="wider" justifyContent="space-between" alignItems="center" w="90%" mt="5" m="auto" py="5" >
-                <Box>
-                    <Image className="icons" height="10" src="/M.svg"></Image>
-                </Box>
-                <Flex fontSize="xl">
-                    {currentUser && <Text mx="5"><Link to="/">Home</Link> </Text>}
-                    {currentUser && <Text mx="5"><Link to="/contact">Contact</Link> </Text>}
-                    {currentUser && <Text mx="5"><Link to="/cart">Cart</Link> </Text>}
-                    {currentUser && <Text mx="5"><Link to="/view-products">View Products</Link> </Text>}
-                    {currentUser && <Text mx="5"><Link to="/add-product">Add Product</Link> </Text>}
-                    {!currentUser && <Text mx="5"> <Link to="/login">Login</Link></Text>}
-                    {!currentUser && <Text mx="5"><Link to="/signup">Sign up</Link> </Text>}
-                    {currentUser && <Text mx="5" onClick={handleLogout} cursor="pointer"> Log out </Text>}
-                    {/* <Link to="/">Home</Link> */}
-                </Flex>
+                <Fade >
+                    <Box>
+                        <Image className="icons" height="10" src="/M.svg"></Image>
+                    </Box>
+                </Fade>
+                <Fade  >
+                    {/* <Box> */}
+                    <Flex fontSize="xl">
+
+                        {currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/">Home</NavLink> </Text>}
+                        {currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/contact">Contact</NavLink> </Text>}
+                        {/* {currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/cart">Cart</NavLink> </Text>} */}
+                        {currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/our-players">Our players</NavLink> </Text>}
+                        {currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/enroll-now">Enroll now</NavLink> </Text>}
+                        {!currentUser && <Text mx="5"> <NavLink exact activeClassName={"underline"} to="/login">Login</NavLink></Text>}
+                        {!currentUser && <Text mx="5"><NavLink exact activeClassName={"underline"} to="/signup">Sign up</NavLink> </Text>}
+                        {currentUser && <Text mx="5" onClick={handleLogout} cursor="pointer"> Log out </Text>}
+                        {/* <Link to="/">Home</Link> */}
+                    </Flex>
+                    {/* </Box> */}
+
+                </Fade>
+                {/* <Slide top></Slide>
+                    <Slide top></Slide>
+                    <Slide top></Slide>
+                    <Slide top></Slide>
+                    <Slide top></Slide>
+                    <Slide top></Slide> */}
             </Flex> :
                 <Flex className="navbar" justifyContent="space-between" alignItems="center" w="90%" m="auto" py="1" >
                     <Box color="white">
@@ -92,8 +108,8 @@ const Navbar = () => {
                                     {currentUser && <Flex alignItems="center"><Icon as={FaHome} /><Text mx="3"><Link to="/">Home</Link> </Text></Flex>}
                                     {/* {currentUser && <Text mx="5"><Link to="/contact">Contact</Link> </Text>} */}
                                     {/* {currentUser && <Text mx="5"><Link to="/cart">Cart</Link> </Text>} */}
-                                    {currentUser && <Flex alignItems="center" ><Icon className="icons" as={GrView}></Icon><Text mx="3"><Link to="/view-products">View Products</Link> </Text></Flex>}
-                                    {currentUser && <Flex alignItems="center" ><Icon className="icons" as={GrUserAdd} /><Text mx="3"><Link to="/add-product">Add Product</Link> </Text></Flex>}
+                                    {currentUser && <Flex alignItems="center" ><Icon className="icons" as={GrView}></Icon><Text mx="3"><Link to="/our-players">Our Players</Link> </Text></Flex>}
+                                    {currentUser && <Flex alignItems="center" ><Icon className="icons" as={GrUserAdd} /><Text mx="3"><Link to="/enroll-now">Enroll Now</Link> </Text></Flex>}
                                     {!currentUser && <Flex ml="2" alignItems="center"><Icon as={IoLogInOutline} /><Text mx="3"> <Link to="/login">Login</Link></Text></Flex>}
                                     {!currentUser && <Flex ml="2" alignItems="center"><Icon as={MdAssignmentInd}></Icon><Text mx="3"><Link to="/signup">Sign up</Link> </Text></Flex>}
                                     {currentUser && <Flex alignItems="center"><Icon as={BiLogOut} /><Text mx="3" onClick={handleLogout} cursor="pointer"> Log out </Text></Flex>}

@@ -17,6 +17,8 @@ const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const mounted = useMounted()
     const history = useHistory()
+    // const user = JSON.parse(localStorage.getItem('currentUser'))
+    // console.log("user in login page ", user);
 
     const validationSchema = yup.object({
         email: yup
@@ -35,7 +37,7 @@ const LoginPage = () => {
         // confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password must match").
         // required("Confirm password is required")
     });
-    console.log("im in login");
+    // console.log("im in login");
     return (
         <>
             {/* <Navbar /> */}

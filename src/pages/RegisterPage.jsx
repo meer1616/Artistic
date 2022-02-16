@@ -13,6 +13,7 @@ const RegisterPage = () => {
     const toast = useToast()
     const [isLoading, setIsLoading] = useState(false)
     const [signupUser, setSignupUser] = useState({})
+    const [finalUser, setfinalUser] = useState(false)
 
     const mounted = useRef(false)
 
@@ -40,15 +41,17 @@ const RegisterPage = () => {
         // confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password must match").
         // required("Confirm password is required")
     });
+    if (finalUser) {
 
-    localStorage.setItem("currentUser", JSON.stringify(signupUser))
+        localStorage.setItem("currentUser", JSON.stringify(signupUser))
+    }
 
-    console.log("signupUser", signupUser);
+    // console.log("signupUser", signupUser);
 
     return (
         <>
             {/* <Navbar /> */}
-            <Flex alignItems="center" justifyContent="center" height="100vh">
+            <Flex alignItems="center" justifyContent="center" height="100vh" className='loginOuterBox'>
                 <Box className="loginContainer" color="gray" p="10" borderRadius="2xl" w={["95%", "95%", "40%", "35%"]} m="auto" >
                     <Text fontSize="2xl" fontWeight="bold" textAlign="center">Sign Up</Text>
                     <Text w="80%" mt="3">
@@ -58,10 +61,11 @@ const RegisterPage = () => {
                         initialValues={{ email: "", password: "" }}
                         validationSchema={validationSchema}
                         onSubmit={(values) => {
+                            setfinalUser(true)
                             const { email, password } = values
                             setIsLoading(true)
                             register(email, password).then(res => {
-                                console.log("res in register", res);
+                                // console.log("res in register", res);
                                 toast({
                                     position: "top-right",
                                     title: "Signup Successfully",
@@ -95,7 +99,7 @@ const RegisterPage = () => {
                         {formik => (
                             <Box>
 
-                                {console.log(formik.values)}
+                                {/* {console.log(formik.values)} */}
                                 <Form>
                                     <Text my="3" mt="8" >Your-email</Text>
                                     <TextField placeholder="abc@example.com" name="email" type="email" />
@@ -114,11 +118,11 @@ const RegisterPage = () => {
                         leftIcon={<FaGoogle />} onClick={() => {
                             signupWithGoogle().then(res => {
                                 setSignupUser(res)
-                                console.log("signupwithgoogle", res)
+                                // console.log("signupwithgoogle", res)
                                 history.push('/')
                             }).catch(err => console.log(err))
                         }}>Sign in with Google</Button>
-                    <Flex my="3">Already a Member ? <Text color="blue" mx="2"> <Link to="/login" login>Sign in</Link></Text> </Flex>
+                    <Flex my="3">Already a Member ? <Text color="blue" mx="2"> <Link to="/login">Sign in</Link></Text> </Flex>
 
                 </Box >
             </Flex >

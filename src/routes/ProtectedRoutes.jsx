@@ -3,6 +3,7 @@ import { Redirect, Route, useLocation } from 'react-router-dom';
 
 const ProtectedRoutes = (props) => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+    // console.log("cur", currentUser);
     const { path } = props
     const location = useLocation()
     // console.log(location.state);

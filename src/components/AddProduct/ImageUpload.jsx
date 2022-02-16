@@ -36,7 +36,7 @@ const ImageUpload = () => {
             (snapshot) => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+                // console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -67,7 +67,7 @@ const ImageUpload = () => {
             () => {
                 // Upload completed successfully, now we can get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
+                    // console.log('File available at', downloadURL);
                 });
             }
         );

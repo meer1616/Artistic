@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Icon, Image, Input, Text, useToast } from '@chakra-ui/react'
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import React, { useState } from 'react'
 import TextField from '../TextField/TextField'
 import { BsFillCloudUploadFill } from "react-icons/bs"
@@ -22,11 +22,11 @@ const AddProductForm = () => {
     const [image, setImage] = useState(undefined)
     const [downloadUrl, setDownloadUrl] = useState(false)
     const [imageUrl, setImageUrl] = useState("")
-    const [preview, setPreview] = useState("")
-    const [previewTest, setPreviewTest] = useState(false)
-    const [fileRej, setFileRej] = useState(false)
+    // const [preview, setPreview] = useState("")
+    // const [previewTest, setPreviewTest] = useState(false)
+    // const [fileRej, setFileRej] = useState(false)
 
-    const typesImage = ['image/jpeg', 'image/png']
+    // const typesImage = ['image/jpeg', 'image/png']
 
     // const handleImageChange = (e) => {
     //     if (e.target.files[0]) {
@@ -62,19 +62,21 @@ const AddProductForm = () => {
 
     const initialValues = {
         name: "",
-        title: "",
-        description: "",
-        address: "",
+        // title: "",
+        dateOfBirth: "",
         contactNo: "",
-        quantity: 1
+        gender: "Male",
+        gymnasticsType: "",
+        address: "",
+        // quantity: 1
     }
 
     const addDocument = (inputFields) => {
 
         try {
-            console.log("inputFields in fun call", inputFields);
+            // console.log("inputFields in fun call", inputFields);
             // const docRef = await addDoc(collection(db, "artisGymProducts"), inputFields)
-            setDoc(doc(db, "artisGymProducts", uuid()), inputFields);
+            setDoc(doc(db, "Student Details", `${inputFields.name}` + uuid()), inputFields);
             toast({
                 position: "top-right",
                 title: "Submited Successfully.",
@@ -91,19 +93,23 @@ const AddProductForm = () => {
     }
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-
+    // const ageRegExp = /^[1-9]?[0-9]{1}$|^100$/
     const validateSchema = Yup.object({
         // id: Yup.string().required(),
         name: Yup.string().required("Name is Required ").min(4),
-        title: Yup.string().required("Ttitle is Required ").min(4),
-        description: Yup.string().required("Description is Required").min(4),
-        address: Yup.string().required("Description is Required "),
+        dateOfBirth: Yup.date().required("Please enter Date of Birth "),
+        gender: Yup.string("Male").required("Please select gender"),
+        gymnasticsType: Yup.string().required("select the type of Gymnastics"),
+        // title: Yup.string().required("Ttitle is Required ").min(4),
+        // age: Yup.string().required("Age is required").matches(ageRegExp, "age is not valid"),
+        // description: Yup.string().required("Description is Required").min(4),
+        address: Yup.string().required("Address is Required "),
         contactNo: Yup.string()
             .required("Contact Number is Required")
             .matches(phoneRegExp, 'Phone number is not valid')
             .min(10, "to short")
             .max(10, "to long"),
-        quantity: Yup.number().required("Quantity is Required"),
+        // quantity: Yup.number().required("Quantity is Required"),
         // imageUrl: Yup.string().required("imageUrl is Required ")
 
     })
@@ -111,6 +117,7 @@ const AddProductForm = () => {
 
 
     const handleUploadImage = (values) => {
+        // console.log("values", values);
         if (image) {
             console.log("going Well");
             const metadata = {
@@ -123,6 +130,7 @@ const AddProductForm = () => {
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
+                    // eslint-disable-next-line default-case
                     switch (snapshot.state) {
                         case 'paused':
                             console.log('Upload is paused');
@@ -133,6 +141,7 @@ const AddProductForm = () => {
                     }
                 },
                 (error) => {
+                    // eslint-disable-next-line default-case
                     switch (error.code) {
                         case 'storage/unauthorized':
                             break;
@@ -140,24 +149,23 @@ const AddProductForm = () => {
                             break;
                         case 'storage/unknown':
                             break;
-
                     }
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 
-                        console.log('File available at', downloadURL);
+                        // console.log('File available at', downloadURL);
                         setImageUrl(downloadURL)
                         // url = downloadURL
                         setDownloadUrl(true)
                         setInputFields({ id: uuid(), createdAt: date, ...values })
                         // console.log("inputFields in submit", inputFields);
-                        console.log("in formik submit ", imageUrl);
-                        console.log("downloadUrl", downloadUrl);
-                        // alert(JSON.stringify({ id: uuid(), createdAt: date, imgName: image.name, imgUrl: downloadURL, ...values }))
+                        // console.log("in formik submit ", imageUrl);
+                        // console.log("downloadUrl", downloadUrl);
+                        alert(JSON.stringify({ id: uuid(), createdAt: date, imgName: image.name, imgUrl: downloadURL, ...values }))
                         addDocument({ id: uuid(), createdAt: date, imgName: image[0].name, imgUrl: downloadURL, ...values })
                         setIsSubmitting(false)
-                        history.push("/view-products")
+                        history.push("/our-players")
 
 
                     });
@@ -169,7 +177,7 @@ const AddProductForm = () => {
         else {
             alert("please upload image")
             setIsSubmitting(false)
-            console.log("not going well");
+            // console.log("not going well");
         }
 
 
@@ -186,14 +194,14 @@ const AddProductForm = () => {
             ))}
         </Box>
     ));
-    console.log("image", image);
+    // console.log("image", image);
 
     if (image === undefined) {
     } else {
-        console.log("image[0]", image[0]);
+        // console.log("image[0]", image[0]);
 
     }
-    console.log("filerejection", fileRejectionItems.length)
+    // console.log("filerejection", fileRejectionItems.length)
     // if (fileRejectionItems.length === 1) {
     //     console.log("inLog", fileRejectionItems);
     //     setFileRej(true)
@@ -201,10 +209,10 @@ const AddProductForm = () => {
 
     // }
     // console.log("image", image[0].preview || "");
-    console.log("getRootProps", getRootProps());
-    console.log("getInputProps", getInputProps());
+    // console.log("getRootProps", getRootProps());
+    // console.log("getInputProps", getInputProps());
     return (
-        <Box w={["85%", "85%", "80%", "50%"]} m="auto">
+        <Box w={["90%", "90%", "80%", "50%"]} m="auto" color="black">
             <Flex flexDir={["column-reverse", "column-reverse", "row", "row"]} border="1px solid lightgray" borderStyle="dashed" justifyContent="space-evenly" mt="5" position="relative" py="5">
                 <Flex flexDir="column" alignItems="center" justifyContent="center" my="5" {...getRootProps()} _hover={{ cursor: "pointer" }} >
                     <Flex alignItems="center" justifyContent="center">
@@ -233,45 +241,107 @@ const AddProductForm = () => {
             <Text textAlign="center" color="red"> {fileRejectionItems}</Text>
 
             <Formik
-
                 initialValues={initialValues}
                 validationSchema={validateSchema}
                 onSubmit={(values) => {
+                    // console.log("values in", values);
                     setIsSubmitting(true)
                     handleUploadImage(values)
+
                 }}
             >
-                {({ resetForm }) => (
+                {({ resetForm, values, handleChange, touched,
+                    errors, }) => (
 
                     <Form  >
                         <Text mt="1" ml="1">Name <span style={{ color: "red" }} >*</span></Text>
-
                         <TextField placeholder="Name" name="name" type="text" />
-                        <Text ml="1">Title <span style={{ color: "red" }} >*</span></Text>
 
-                        <TextField placeholder="Title" name="title" type="text" />
+                        {/* <Text ml="1">Age <span style={{ color: "red" }} >*</span></Text>
+                        <TextField placeholder="Age" name="age" type="number" /> */}
 
 
+
+                        {/* 
                         <Text ml="1">Description <span style={{ color: "red" }} >*</span></Text>
-                        <TextField placeholder="Description" name="description" type="text" />
+                        <TextField placeholder="Description" name="description" type="text" /> */}
 
-
-                        <Text ml="1" ml="1" >Address <span style={{ color: "red" }} >*</span></Text>
-                        <TextField placeholder="Address" name="address" type="text" />
-
-                        <Flex flexDir={["column", "column", "row", "row"]}>
+                        <Flex mt="3" mb="1" flexDir={["column", "column", "row", "row"]}>
                             <Box w={["100%", "100%", "50%", "50%"]} mr="5" >
 
-                                <Text ml="1" >Contact No <span style={{ color: "red" }} >*</span></Text>
+                                <Text mt="3" mb="1" ml="1" >Contact No <span style={{ color: "red" }} >*</span></Text>
 
                                 <TextField placeholder="Contact Number" name="contactNo" type="number" />
                             </Box>
                             <Box w={["100%", "100%", "50%", "50%"]}>
-
-                                <Text ml="1" >Quantity <span style={{ color: "red" }} >*</span></Text>
-                                <TextField placeholder="Quantity" name="quantity" type="number" />
+                                <Text mt="3" mb="1" ml="1">Date of Birth <span style={{ color: "red" }} >*</span></Text>
+                                <TextField placeholder="Date of Birth" name="dateOfBirth" type="date" />
                             </Box>
+
                         </Flex>
+                        <Box w={["100%", "100%", "100%", "100%"]}>
+
+                            {/* <Text ml="1" >Quantity <span style={{ color: "red" }} >*</span></Text>
+                                <TextField placeholder="Quantity" name="quantity" type="number" /> */}
+                            <Flex my="6" mb="1" alignItems="center" justifyContent="space-between" flexDir={["column", "column", "row", "row"]}>
+
+
+                                {/* <RadioGroup name="gender" ml="5">
+                                        <Stack direction="column">
+                                        
+                                        <Radio value="Male" defaultChecked>Male</Radio>
+                                        <Radio value="Female">Female</Radio>
+                                        </Stack>
+                                    </RadioGroup> */}
+                                <Box w={["100%", "100%", "50%", "50%"]} mr={["0", "0", "5", "5"]} mb={["4", "4", "0", "0"]}>
+                                    <Flex >
+
+                                        <span ml="1">Gender <span style={{ color: "red", marginRight: "15px" }} >*</span></span>
+                                        <div role="group" aria-labelledby="my-radio-group">
+                                            <Box >
+
+                                                <Field checked type="radio" name="gender" value="Male" />
+                                                <label style={{ marginLeft: "3px" }} >
+                                                    Male
+                                                </label>
+                                            </Box>
+                                            <Box>
+
+                                                <Field type="radio" name="gender" value="Female" />
+                                                <label style={{ marginLeft: "3px" }}>
+                                                    Female
+                                                </label>
+                                            </Box>
+                                        </div>
+                                    </Flex>
+                                </Box>
+                                <Box w={["100%", "100%", "50%", "50%"]} >
+                                    <select
+                                        name="gymnasticsType"
+                                        value={values.gymnasticsType}
+                                        onChange={handleChange}
+                                        // onBlur={handleBlur}
+                                        style={{ display: 'block', border: "1px solid rgba(197, 197, 197,0.4)", padding: "7px", borderRadius: "5px", width: "100%" }}
+                                    >
+                                        <option value="" label="Gymnastics Type" />
+                                        <option value="Artistics Gymnastics" label="Artistic Gymnastics" />
+                                        <option value="Rhytmic Gymnastics" label="Rhytmic Gymnastics" />
+                                        <option value="Trampoline Gymnastics" label="Trampoline Gymnastics" />
+                                        <option value="Aerobics Gymnastics" label="Aerobics Gymnastics" />
+                                    </select>
+                                    {errors.gymnasticsType &&
+                                        touched.gymnasticsType &&
+                                        <div style={{ color: "red" }}>
+                                            {errors.gymnasticsType}
+                                        </div>}
+                                </Box>
+                            </Flex>
+                        </Box>
+
+                        <Text ml="1" mt="3" mb="1" >Address <span style={{ color: "red" }} >*</span></Text>
+                        <TextField placeholder="Address" name="address" type="text" />
+
+
                         <Text _hover={{ cursor: "pointer" }} mt="2" color="blue.500" textAlign="right" type="reset" onClick={resetForm}>
                             Reset all
                         </Text>

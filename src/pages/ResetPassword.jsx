@@ -15,9 +15,9 @@ const ResetPassword = () => {
 
     }
     const query = useQuery()
-    console.log("query", query.get('mode'));
-    console.log("query", query.get('oobCode'));
-    console.log("query", query.get('continueUrl'));
+    // console.log("query", query.get('mode'));
+    // console.log("query", query.get('oobCode'));
+    // console.log("query", query.get('continueUrl'));
 
     const { resetPassword } = useAuth()
     const toast = useToast()
@@ -54,11 +54,11 @@ const ResetPassword = () => {
                         validationSchema={validationSchema}
                         onSubmit={(values) => {
                             const { password } = values
-                            console.log("password submited");
+                            // console.log("password submited");
                             console.log(password);
 
                             resetPassword(query.get('oobCode'), password).then(res => {
-                                console.log("res", res)
+                                // console.log("res", res)
                                 toast({
                                     position: "top-right",
                                     title: "password changed.",
