@@ -95,7 +95,7 @@ const OurProfessionals = () => {
                     </Flex>
 
                     <Text> Name : Kohei Uchimura</Text>
-                    <Text>Experience : 100 Years</Text>
+                    <Text>Experience : 19 Years</Text>
                     <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
                 <Box border="1px" mx={["10", "10", "16", "16"]} my="10" p={["8", "8", "10", "10"]} borderRadius="2xl" backgroundColor="black" color="white">
@@ -104,7 +104,7 @@ const OurProfessionals = () => {
                         <Image src="./w6.jpg" alt="img" ></Image>
                     </Flex>
                     <Text> Name : Sam Mikulak</Text>
-                    <Text>Experience : 50 Years</Text>
+                    <Text>Experience : 18 Years</Text>
                     <Text>Designation : Manthan Mistry is a National Judge as well as top 8 player of India .He is a State Champion and also a good human</Text>
                 </Box>
             </Carousel>
